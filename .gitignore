@@ -3,6 +3,9 @@
 /dist
 **/__pycache__/
 
+#escondendo as credencias pq n sou burro
+/credentials
+
 #token
 token.pickle
 
