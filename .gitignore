@@ -1,3 +1,10 @@
-__pycache__
-.idea
-venvKeylogger
+/.idea
+/build
+/dist
+**/__pycache__/
+
+#token
+token.pickle
+
+#ambiente de desenvolvimento
+/venvKeylogger
