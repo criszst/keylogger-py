@@ -4,6 +4,7 @@ import platform
 import requests
 import win32api
 import os
+
 def infoPc():
     listI = f"""
         Sistema: {platform.system()}

@@ -11,3 +11,9 @@ token.pickle
 
 #ambiente de desenvolvimento
 /venvKeylogger
+
+# logs do keylogger
+/logs
+
+#so o print do pc, nada de mais
+**NotebookAdrian.png
