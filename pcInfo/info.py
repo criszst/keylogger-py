@@ -1,9 +1,4 @@
-import socket
-import platform
-
-import requests
-import win32api
-import os
+import socket, platform, requests, win32api, os
 
 def infoPc():
     listI = f"""
