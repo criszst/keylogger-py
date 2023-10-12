@@ -6,8 +6,8 @@ Após um determinado tempo, ele envia um email contendo um log do que o usuario 
 (ele fica mandando esse email de tempos em tempos)
 
 # Dependencias
-> [Google API - Gmail] - Envia o email.
+- [Google API - Gmail] - Envia o email.
  
-> [Pynput] - Pega o que a pessoa está digitando.
+- [Pynput] - Pega o que a pessoa está digitando.
  
-> [Pyautogui] - Tira uma screenshot da tela.
+- [Pyautogui] - Tira uma screenshot da tela.
