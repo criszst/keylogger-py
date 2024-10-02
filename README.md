@@ -1,13 +1,13 @@
 # keylogger-py
-Um keylogger que registra tudo que uma pessoa digita no PC e salva num arquivo. Ele também tira screenshot da tela.
+A keylogger that records everything a person types on a PC and saves it to a file. It also takes a screenshot of the screen.
 
-Após um determinado tempo, ele envia um email contendo um log do que a pessoa digitou e uma screenshot da tela.
+After a certain amount of time, it sends an email containing a log of what the person typed and a screenshot of the screen.
 
-(ele fica mandando esse email de tempos em tempos)
+(it keeps sending this email from time to time)
 
-# Dependencias
-- [Google API - Gmail] - Envia o email.
- 
-- [Pynput] - Pega o que a pessoa está digitando.
- 
-- [Pyautogui] - Tira uma screenshot da tela.
+# Dependencies
+- [Google API - Gmail] - Sends the email.
+
+- [Pynput] - Gets what the person is typing.
+
+- [PyAutoGui] - Takes a screenshot of the screen.
